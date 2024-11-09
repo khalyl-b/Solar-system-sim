@@ -1,5 +1,5 @@
 #imports
-import pygame, time, sys, sqlite3, random
+import pygame, time, sys, sqlite3, random, threading
 from pygame import mixer
 from tkinter import *
 #temporary variable which will be used for creating the user
@@ -196,12 +196,12 @@ class planet:
 			hover_count += 1
 			#Plays the hover sound
 			if hover_sound == 0:
-				'''
+				
 				mixer.music.load("Hover.mp3")
 				mixer.music.set_volume(1)
 				mixer.music.play()
 				hover_sound = 2
-				'''
+				
 
 			if acheivements[5] == 0:
 				acheivements[5] = 1
@@ -218,12 +218,12 @@ class planet:
 			hover_count += 1
 
 			if hover_sound == 0:
-				'''
+			
 				mixer.music.load("Hover.mp3")
 				mixer.music.set_volume(1)
 				mixer.music.play()
 				hover_sound = 2
-				'''
+			
 
 
 #These are the base planets which are the normal ones that exist in our solar system with their respective attributes
@@ -493,15 +493,6 @@ def angle_changer(num):
 		print("Max")
 
 
-'''
-#playes music
-mixer.init() 
-#find a more appropriate song tho mate
-mixer.music.load("MDK_Space_invaders.mp3") 
-mixer.music.set_volume(0.01) 
-mixer.music.play()
-'''
-
 
 stars = []
 
@@ -650,19 +641,19 @@ while run:
 				if event.pos[0] >= 500 and event.pos[0] <= 500 + 280:
 					if event.pos[1] >= 220 and event.pos[1] <= 220 + 135:
 						back.place = "editor_edit"
-						'''
+						
 						mixer.music.load("Select.mp3")
 						mixer.music.set_volume(1)
 						mixer.music.play()
-						'''
+						
 					if event.pos[1] >= 365 and event.pos[1] <= 365 + 135:
 
 						back.place = "editor_create"
-						'''
+						
 						mixer.music.load("Select.mp3")
 						mixer.music.set_volume(1)
 						mixer.music.play()
-						'''
+					
 
 		#just drawing the buttons
 
@@ -738,18 +729,18 @@ while run:
 						strings[pos] = strings[pos] + event.unicode
 				if event.key == 13 or event.key == 1073741905:
 					pos += 1
-					'''
+					
 					mixer.music.load("Hover.mp3")
 					mixer.music.set_volume(1)
 					mixer.music.play()
-					'''
+					
 				if event.key == 1073741906:
 					pos -= 1
-					'''
+					
 					mixer.music.load("Hover.mp3")
 					mixer.music.set_volume(1)
 					mixer.music.play()
-					'''
+					
 					if pos == -1:
 						pos = 0
 				if event.key == 8:
@@ -843,27 +834,27 @@ while run:
 					if event.pos[0] >= 730 and event.pos[0] <= 760:
 						current += 1
 						z = 0
-						'''
+						
 						mixer.music.load("Select.mp3")
 						mixer.music.set_volume(1)
 						mixer.music.play()
 
-						'''
+					
 					if event.pos[0] >= 520 and event.pos[0] <= 550:
 						current -= 1
 						z = 0
-						'''
+						
 						mixer.music.load("Select.mp3")
 						mixer.music.set_volume(1)
 						mixer.music.play()
-						'''
+						
 				if event.pos[0] >= 1200 and event.pos[0] <= 1270:
 					if event.pos[1] >= 670 and event.pos[1] <= 710:
-						'''
+						
 						mixer.music.load("Select.mp3")
 						mixer.music.set_volume(1)
 						mixer.music.play()
-						'''
+						
 
 						conn = sqlite3.connect('User_information.db')
 						curs = conn.cursor()
@@ -906,22 +897,22 @@ while run:
 			if pygame.mouse.get_pos()[0] >= 730 and pygame.mouse.get_pos()[0] <= 760:
 				pygame.draw.polygon(win, (100, 100, 100),((760, 60), (730, 75), (730, 45)))
 				if hover_sound2 == 0:
-					'''
+					
 					mixer.music.load("Hover.mp3")
 					mixer.music.set_volume(1)
 					mixer.music.play()
 					hover_sound2 = 1
-					'''
+				
 
 			if pygame.mouse.get_pos()[0] >= 520 and pygame.mouse.get_pos()[0] <= 550:
 				pygame.draw.polygon(win, (100, 100, 100),((520, 60), (550, 75), (550, 45)))
 				if hover_sound2 == 0:
-					'''
+				
 					mixer.music.load("Hover.mp3")
 					mixer.music.set_volume(1)
 					mixer.music.play()
 					hover_sound2 = 1
-					'''
+					
 		else:
 			hover_sound2 = 0
 
@@ -1027,18 +1018,18 @@ while run:
 						print(e)  #change when you can
 				if event.key == 13 or event.key == 1073741905:
 					pos += 1
-					'''
+				
 					mixer.music.load("Hover.mp3")
 					mixer.music.set_volume(1)
 					mixer.music.play()
-					'''
+				
 				if event.key == 1073741906:
 					pos -= 1
-					'''
+				
 					mixer.music.load("Hover.mp3")
 					mixer.music.set_volume(1)
 					mixer.music.play()
-					'''
+			
 					if pos == -1:
 						pos = 0
 			if event.type == pygame.QUIT:
@@ -1073,6 +1064,7 @@ while run:
 		scale = 1
 		angle = 1
 		a_time = 0.01
+		reset_asteroid_belt()
 
 	#updates any changes made to the graphics
 	pygame.display.update()
